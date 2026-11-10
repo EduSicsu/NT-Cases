@@ -101,9 +101,11 @@ function Shell({ t, lang, setLang, theme, setTheme, role, route, go, signOut }) 
       <div className="topbar">
         <button className="iconbtn burger" onClick={() => setDrawer(true)} aria-label="Open menu"><Icon n="menu" /></button>
         <label className="search"><Icon n="search" size={18} /><input className="trunc" type="search" aria-label={t('Search fields, varieties, workers…')} placeholder={t('Search fields, varieties, workers…')} onKeyDown={e => e.key === 'Enter' && toast(t('Not in the prototype yet'))} /></label><div className="spacer" />
-        <ThemeBtn theme={theme} setTheme={setTheme} t={t} /><LangMenu lang={lang} setLang={setLang} end />
-        <button className="iconbtn" aria-label={t('Notifications')} data-soon><Icon n="bell" /></button>
-        <Menu end kind="text" icon="user" label={mgr ? 'Aline · ' + t('Manager') : 'Rafael · ' + t('Employee')} value="" onPick={v => v === 'out' && signOut()} items={[{ value: 'acc', label: t('My account'), icon: 'user' }, '-', { value: 'out', label: t('Sign out'), icon: 'logout' }]} />
+        <div className="topbar-actions" role="toolbar" aria-label={t('Quick settings')}>
+          <ThemeBtn theme={theme} setTheme={setTheme} t={t} /><LangMenu lang={lang} setLang={setLang} end />
+          <button className="iconbtn" aria-label={t('Notifications')} data-soon><Icon n="bell" /></button>
+          <Menu end kind="text" icon="user" label={mgr ? 'Aline · ' + t('Manager') : 'Rafael · ' + t('Employee')} value="" onPick={v => v === 'out' && signOut()} items={[{ value: 'acc', label: t('My account'), icon: 'user' }, '-', { value: 'out', label: t('Sign out'), icon: 'logout' }]} />
+        </div>
       </div>
       <div className="body">{page}</div>
     </main>

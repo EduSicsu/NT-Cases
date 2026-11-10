@@ -276,3 +276,20 @@ td, th { unicode-bidi: plaintext; text-align: start; }
   .cards-2 { grid-template-columns: 1fr; }
   .dialog .row { flex-wrap: wrap !important; }
 }
+
+/* mobile: burger + search stay on top, quick settings move to a bottom bar */
+.topbar-actions { display: contents; }
+@media (max-width: 720px) {
+  .topbar .search { max-width: none; } .topbar .spacer { display: none; }
+  .topbar-actions {
+    position: fixed; inset-inline: 0; bottom: 0; z-index: 35;
+    display: flex; align-items: center; justify-content: space-around; gap: 4px;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+    background: var(--raised); border-top: 1px solid var(--sep); box-shadow: 0 -4px 16px #0000001a;
+  }
+  .topbar-actions .btn, .topbar-actions .iconbtn { min-width: 48px; min-height: 48px; justify-content: center; }
+  .topbar-actions .menuwrap { position: static; }
+  .topbar-actions .menu, .topbar-actions .menu.end { position: fixed; top: auto; inset-inline: 12px; inset-block-end: calc(76px + env(safe-area-inset-bottom)); min-width: 0; }
+  .body { padding-bottom: calc(104px + env(safe-area-inset-bottom)); }
+  .toast-wrap { bottom: calc(92px + env(safe-area-inset-bottom)); }
+}
