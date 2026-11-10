@@ -1,0 +1,16 @@
+{
+  "name": "Hilda · Orgânicos direto de quem planta",
+  "short_name": "Hilda",
+  "description": "Monte sua lista de orgânicos e receba da feira, de um ponto de retirada ou em casa.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fdfbf7",
+  "theme_color": "#bff0e1",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

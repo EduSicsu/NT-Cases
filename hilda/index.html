@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Hilda · Orgânicos direto de quem planta</title>
+  <meta name="description" content="Hilda conecta quem planta a quem come: monte sua lista de orgânicos, escolha como receber e acompanhe o pedido. Protótipo para clientes e produtores da região amazônica." />
+  <meta name="theme-color" content="#bff0e1" />
+  <meta name="color-scheme" content="light dark" />
+  <meta property="og:title" content="Hilda · Orgânicos direto de quem planta" />
+  <meta property="og:description" content="Protótipo clicável do app Hilda, para clientes e produtores." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/img/tomato-960.webp" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <script>
+    // Apply saved theme and language before the first paint, so there is no flash of the wrong look.
+    try {
+      var s = JSON.parse(localStorage.getItem('hilda:v1') || 'null') || {};
+      var dark = s.theme === 'dark' || ((!s.theme || s.theme === 'system') && matchMedia('(prefers-color-scheme: dark)').matches);
+      var d = document.documentElement;
+      d.dataset.theme = dark ? 'dark' : 'light';
+      if (s.lang) { d.lang = s.lang === 'pt' ? 'pt-BR' : s.lang; d.dir = s.lang === 'ar' ? 'rtl' : 'ltr'; }
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', dark ? '#1F3A2E' : '#BFF0E1');
+    } catch (e) {}
+  </script>
+  <style>
+    html { background: #e6ebdf; }
+    html[data-theme='dark'] { background: #070d0a; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <noscript>O Hilda precisa de JavaScript para funcionar. Ative o JavaScript no navegador e recarregue a página.</noscript>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+</html>
