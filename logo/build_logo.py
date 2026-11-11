@@ -20,22 +20,27 @@ from reportlab.lib.colors import CMYKColor
 OUT = os.path.dirname(os.path.abspath(__file__))
 ADDRESS = ""            # ex.: "Rod. AM-352, km 22 · Vila Vale"  (vazio = sem endereço)
 
-# ---- Paleta CMYK (0..1) e aproximação RGB só para o SVG/preview ----
+# ---- Paleta CMYK terrosa (0..1) e aproximação RGB só para o SVG/preview ----
 PAL = {
-    "blue":   (1.00, 0.85, 0.00, 0.10),
-    "green":  (0.75, 0.00, 1.00, 0.05),
-    "dgreen": (0.85, 0.30, 1.00, 0.20),
-    "yellow": (0.00, 0.18, 1.00, 0.00),
+    "brown":  (0.45, 0.65, 0.85, 0.50),   # marrom-café (texto e anel)
+    "terra":  (0.10, 0.75, 0.90, 0.12),   # terracota (caju, detalhes)
+    "mustard":(0.05, 0.35, 0.95, 0.00),   # mostarda (sol)
+    "olive":  (0.50, 0.38, 1.00, 0.42),   # oliva escuro
+    "olivel": (0.30, 0.22, 0.85, 0.20),   # oliva claro
+    "sand":   (0.07, 0.18, 0.42, 0.00),   # areia (sulcos)
+    "cream":  (0.03, 0.05, 0.20, 0.00),   # creme (fundo)
 }
 def rgb_hex(c):
     C, M, Y, K = c
-    f = lambda v: round(255 * (1 - v) * (1 - K) * 0.93 + 0)  # aproximação conservadora
+    f = lambda v: round(255 * (1 - v) * (1 - K))
     return "#%02x%02x%02x" % (f(C), f(M), f(Y))
 
 # ---- Fontes (viram curvas) ----
-RING_FONT = "/usr/share/fonts/truetype/crosextra/Carlito-Bold.ttf"
-TITLE_FONT = "/usr/share/fonts/opentype/inter/Inter-ExtraBold.otf"
-SMALL_FONT = "/usr/share/fonts/opentype/inter/Inter-SemiBold.otf"
+FD = "/usr/share/fonts/truetype/crosextra/"
+RING_FONT = FD + "Caladea-Bold.ttf"
+TITLE_FONT = FD + "Caladea-Bold.ttf"
+TITLE_IT = FD + "Caladea-BoldItalic.ttf"
+SMALL_FONT = FD + "Caladea-Regular.ttf"
 
 class RecPen(BasePen):
     def __init__(self, gs):
@@ -105,51 +110,99 @@ def text_arc(font, s, size, R, center_deg, top, tracking, colors=None):
         def tf(x, y, cs=cs, sn=sn, px=px, py=py, h=h):
             x -= h
             return (px + x * cs - y * sn, py + x * sn + y * cs)
-        col = (colors or {}).get(c, "blue")
+        col = (colors or {}).get(c, "brown")
         fill(font.glyph(c, size, tf), col)
 
-ring = Font(RING_FONT); title = Font(TITLE_FONT); small = Font(SMALL_FONT)
+ring = Font(RING_FONT); title = Font(TITLE_FONT); title_it = Font(TITLE_IT); small = Font(SMALL_FONT)
 
-# 1) Anel externo (verde) — borda externa em r = 200 (= 40 mm)
-RING_W = 6
-stroke(circle_ops(0, 0, 200 - RING_W / 2), "green", RING_W)
+def polyline(pts, close=False):
+    ops = [("M", pts[0])] + [("L", p) for p in pts[1:]]
+    return ops + ([("Z",)] if close else [])
 
-# 2) Texto do anel
-SZ = 25
-text_arc(ring, "PROJETO MISSIONÁRIO RENOVO", SZ, 164, 90, True, 3.2)
-text_arc(ring, "EDUCAÇÃO • TRABALHO • RENDA".replace("•", "·"), SZ, 183, 270, False, 3.2,
-         colors={"·": "green"})
-for deg in (0, 180):    # pontos de separação laterais
-    x, y = 173.5 * math.cos(math.radians(deg)), 173.5 * math.sin(math.radians(deg))
-    fill(circle_ops(x, y, 4.2), "green")
+# 1) Fundo creme + anéis
+fill(circle_ops(0, 0, 200), "cream")
+stroke(circle_ops(0, 0, 197.5), "brown", 5)
+stroke(circle_ops(0, 0, 189), "terra", 1.6)
+stroke(circle_ops(0, 0, 153), "terra", 1.6)
+
+# 2) Texto do anel (serifado)
+SZ = 21
+text_arc(ring, "PROJETO MISSIONÁRIO RENOVO", SZ, 164.5, 90, True, 3.0)
+text_arc(ring, "EDUCAÇÃO · TRABALHO · RENDA", SZ, 178.5, 270, False, 3.0, colors={"·": "terra"})
+for deg in (0, 180):
+    x, y = 171 * math.cos(math.radians(deg)), 171 * math.sin(math.radians(deg))
+    fill(circle_ops(x, y, 3.6), "mustard")
 
 # 3) Sol
-SX, SY, SR = 0, 120, 19
-fill(circle_ops(SX, SY, SR), "yellow")
-for i in range(12):
-    a = math.radians(90 + i * 30)
-    c, s = math.cos(a), math.sin(a)
-    stroke([("M", (SX + c * (SR + 6), SY + s * (SR + 6))), ("L", (SX + c * (SR + 15), SY + s * (SR + 15)))],
-           "yellow", 4.2)
+SX, SY, SR = 0, 120, 12
+for i in range(16):
+    a = math.radians(i * 22.5)
+    c, s_ = math.cos(a), math.sin(a)
+    r0, r1 = SR + 5, SR + (13 if i % 2 == 0 else 9)
+    stroke([("M", (SX + c * r0, SY + s_ * r0)), ("L", (SX + c * r1, SY + s_ * r1))], "mustard", 2.6)
+fill(circle_ops(SX, SY, SR), "mustard")
 
 # 4) Nome
-text_line(title, "Produtos", 47, 0, 48, "blue", tracking=-0.5)
-text_line(title, "do Sítio", 55, 0, -4, "blue", tracking=-0.5)
+text_line(title, "Produtos", 44, 0, 60, "brown", tracking=0.8)
+text_line(title_it, "do Sítio", 58, 0, 6, "terra", tracking=0.4)
 
-# 5) Colinas + árvore
-hill = [("M", (-108, -46)), ("C", (-72, -26), (-34, -26), (0, -40)),
-        ("C", (32, -54), (72, -56), (108, -46)),
-        ("C", (70, -76), (-70, -76), (-108, -46)), ("Z",)]
-fill(hill, "green")
-fill([("M", (66.2, -50)), ("L", (69.8, -50)), ("L", (69.8, -38)), ("L", (66.2, -38)), ("Z",)], "blue")  # tronco
-fill(circle_ops(68, -33, 10.5), "dgreen")                    # copa
+# 5) Paisagem: colinas, sulcos de plantio, árvores e caju
+OFF = 6
+X0 = 120
+bot = lambda x: -58 - 30 * (1 - (x / X0) ** 2) + OFF
+wt = lambda x: max(0.0, 1 - (x / X0) ** 2) ** 0.5
+hB = lambda x: -38 + 13 * math.cos((x + 50) * math.pi / 90) + OFF
+hF = lambda x: -52 + 14 * math.cos((x - 45) * math.pi / 100) + OFF
+topB = lambda x: bot(x) + (hB(x) - bot(x)) * wt(x)
+topF = lambda x: bot(x) + (hF(x) - bot(x)) * wt(x)
+xs = [-X0 + i * 3 for i in range(int(2 * X0 / 3) + 1)]
+def silhouette(top):
+    return polyline([(x, top(x)) for x in xs] + [(x, bot(x)) for x in reversed(xs)], True)
+fill(silhouette(topB), "olivel")
+fill(silhouette(topF), "olive")
+for k in (1, 2, 3):                       # sulcos (linhas de plantio) na colina da frente
+    run = []
+    for x in xs:
+        y = topF(x) - 7.5 * k
+        if y > bot(x) + 5 and abs(x) < X0 - 6 and topF(x) > topB(x) - 1:
+            run.append((x, y))
+        elif len(run) > 3:
+            stroke(polyline(run), "sand", 2.0); run = []
+        else:
+            run = []
+    if len(run) > 3: stroke(polyline(run), "sand", 2.0)
+
+def tree(x, top, s):
+    y0 = top(x) - 1.5
+    fill([("M", (x - 1.2 * s, y0)), ("L", (x + 1.2 * s, y0)), ("L", (x + 1.0 * s, y0 + 7 * s)), ("L", (x - 1.0 * s, y0 + 7 * s)), ("Z",)], "brown")
+    fill(circle_ops(x, y0 + 11 * s, 6.5 * s), "olive" if top is topB else "olivel")
+    fill(circle_ops(x - 3.2 * s, y0 + 9.5 * s, 4.2 * s), "olive" if top is topB else "olivel")
+    fill(circle_ops(x + 3.2 * s, y0 + 9.5 * s, 4.2 * s), "olive" if top is topB else "olivel")
+tree(-72, topB, 1.25)
+tree(-93, topB, 0.85)
+tree(78, topF, 1.1)
+tree(98, topF, 0.8)
+
+def caju(cx, base, s):
+    def T(p): return (cx + p[0] * s, base + p[1] * s)
+    def poly(ops): return [(o[0],) + tuple(T(p) for p in o[1:]) for o in ops]
+    fruit = [("M", (0, 5.5)), ("C", (7, 5.5), (10, 11), (9, 16)), ("C", (8.5, 20), (6, 23), (5, 27)),
+             ("L", (-5, 27)), ("C", (-6, 23), (-8.5, 20), (-9, 16)), ("C", (-10, 11), (-7, 5.5), (0, 5.5)), ("Z",)]
+    nut = [("M", (-4, 6.5)), ("C", (-5, 0), (1, -3), (7, -1.5)), ("C", (11, -0.5), (11, 3.5), (8, 4)),
+           ("C", (5, 4.5), (3, 4.2), (0, 6.5)), ("Z",)]
+    leaf = [("M", (0, 27)), ("C", (2, 33), (8, 34), (11, 32)), ("C", (8, 28), (4, 26), (0, 27)), ("Z",)]
+    fill(poly(nut), "brown"); fill(poly(fruit), "terra")
+    fill(poly([("M", (-3.5, 11)), ("C", (-4, 15), (-3, 19), (-2, 21)), ("C", (-1.6, 18), (-2, 14), (-3.5, 11)), ("Z",)]), "mustard")
+    fill(poly(leaf), "olive")
+caju(-4, topB(-4) - 3.5, 1.0)
 
 # 6) Endereço (opcional) e "Desde 2020"
-y = -77
 if ADDRESS:
-    text_line(small, ADDRESS, 13, 0, -80, "blue", tracking=0.3)
-    y = -112
-text_line(ring, "DESDE 2020", 21, 0, -100 if not ADDRESS else y, "blue", tracking=2.2)
+    text_line(small, ADDRESS, 12, 0, -97, "brown", tracking=0.3)
+text_line(ring, "DESDE 2020", 17, 0, -121 if ADDRESS else -112, "brown", tracking=3.0)
+yl = (-121 if ADDRESS else -112) + 6
+for sgn in (-1, 1):
+    stroke([("M", (sgn * 62, yl)), ("L", (sgn * 86, yl))], "terra", 1.6)
 
 # ================= Saída =================
 def svg_d(ops):
