@@ -90,11 +90,11 @@
   <g id="endereco" font-family="Roboto Condensed" font-weight="700" text-anchor="middle">
     <g id="endereco-contorno" fill="#f9eec4" stroke="#f9eec4" stroke-width="9" stroke-linejoin="round">
       <text x="514" y="693" font-size="42.5">Rod. AM 352 - KM 25</text>
-      <text x="515" y="737" font-size="41.0">Ramal Vale da Benção</text>
+      <text x="515" y="737" font-size="38.9">Ramal Vale de Bençãos</text>
     </g>
     <g id="endereco-cor" fill="#40270d">
       <text id="endereco-linha1" x="514" y="693" font-size="42.5">Rod. AM 352 - KM 25</text>
-      <text id="endereco-linha2" x="515" y="737" font-size="41.0">Ramal Vale da Benção</text>
+      <text id="endereco-linha2" x="515" y="737" font-size="38.9">Ramal Vale de Bençãos</text>
     </g>
   </g>
 

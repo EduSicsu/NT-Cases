@@ -134,7 +134,7 @@ def fit_width(font, txt, target_w):
 TITLE1_SIZE = fit_width(lobster, "Produtos", 572)
 TITLE2_SIZE = fit_width(lobster, "do Sítio", 514)
 ADDR_SIZE = fit_width(rcond, "Rod. AM 352 - KM 25", 363)
-ADDR2_SIZE = fit_width(rcond, "Ramal Vale da Benção", 364)
+ADDR2_SIZE = fit_width(rcond, "Ramal Vale de Bençãos", 364)
 
 def ray(k, side):
     a = math.radians(-90 + side * k * RAY_STEP)
@@ -240,11 +240,11 @@ svg = f'''<?xml version="1.0" encoding="UTF-8"?>
   <g id="endereco" font-family="Roboto Condensed" font-weight="700" text-anchor="middle">
     <g id="endereco-contorno" fill="{CREAM2}" stroke="{CREAM2}" stroke-width="9" stroke-linejoin="round">
       <text x="514" y="693" font-size="{ADDR_SIZE:.1f}">Rod. AM 352 - KM 25</text>
-      <text x="515" y="737" font-size="{ADDR2_SIZE:.1f}">Ramal Vale da Benção</text>
+      <text x="515" y="737" font-size="{ADDR2_SIZE:.1f}">Ramal Vale de Bençãos</text>
     </g>
     <g id="endereco-cor" fill="{BROWN}">
       <text id="endereco-linha1" x="514" y="693" font-size="{ADDR_SIZE:.1f}">Rod. AM 352 - KM 25</text>
-      <text id="endereco-linha2" x="515" y="737" font-size="{ADDR2_SIZE:.1f}">Ramal Vale da Benção</text>
+      <text id="endereco-linha2" x="515" y="737" font-size="{ADDR2_SIZE:.1f}">Ramal Vale de Bençãos</text>
     </g>
   </g>
 
