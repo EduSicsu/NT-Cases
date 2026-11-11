@@ -72,7 +72,7 @@
 
 <g id="textos">
   <g id="texto-anel" font-family="Domine" font-weight="700" font-size="45.83" fill="#40270d">
-    <text id="anel-topo" letter-spacing="1.87" text-anchor="middle"><textPath xlink:href="#guia-arco-topo" href="#guia-arco-topo" startOffset="50%">PROJETO MISSIONÁRIO RENOVO</textPath></text>
+    <text id="anel-topo" letter-spacing="1.87" text-anchor="middle"><textPath xlink:href="#guia-arco-topo" href="#guia-arco-topo" startOffset="50%">PROJETO RENOVO MISSIONÁRIO</textPath></text>
     <text id="anel-base" letter-spacing="0.19" text-anchor="middle"><textPath xlink:href="#guia-arco-base" href="#guia-arco-base" startOffset="50%">EDUCAÇÃO <tspan fill="#a64722">·</tspan> TRABALHO <tspan fill="#a64722">·</tspan> RENDA</textPath></text>
   </g>
 

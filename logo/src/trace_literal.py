@@ -38,6 +38,15 @@ badge = np.zeros_like(badge); cv2.drawContours(badge, cnts, -1, 1, -1)
 badge = cv2.morphologyEx(badge, cv2.MORPH_OPEN, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 9)))
 badge = cv2.GaussianBlur(badge.astype(np.float32), (0, 0), 2.0) > 0.5
 
+# --- opcional: apaga o texto do anel superior (será refeito em curvas por finalize_literal.py) ---
+if os.environ.get("ERASE_TOP"):
+    yy, xx = np.mgrid[0:H, 0:W]
+    rr = np.hypot(xx - 2 * 511.6, yy - 2 * 490.4) / 2
+    ang = np.degrees(np.arctan2(yy - 2 * 490.4, xx - 2 * 511.6))
+    sector = (rr > 343) & (rr < 404) & (ang > -160) & (ang < -19.5)
+    big[sector] = np.array([244, 233, 183], np.uint8)
+    lab = cv2.cvtColor(big, cv2.COLOR_RGB2LAB).astype(np.float32)
+
 # --- paleta ---
 pix = lab[badge]
 rng = np.random.default_rng(1)

@@ -2,8 +2,9 @@
 
 | Arquivo | O que é |
 |---|---|
-| `simbolo-produtos-do-sitio_1-literal.svg` / `.pdf` | **Modelo 1 — cópia literal.** Tudo em curvas (inclusive o texto), 16 cores chapadas, sem fontes. É a vetorização fiel da imagem enviada. |
+| `simbolo-produtos-do-sitio_1-literal.svg` / `.pdf` | **Modelo 1 — cópia literal.** Tudo em curvas, 16 cores chapadas, sem fontes. Vetorização da imagem enviada; só o anel superior (**PROJETO RENOVO MISSIONÁRIO**) e a linha "Ramal Vale de Bençãos" foram refeitos em curvas (Domine / Roboto Condensed), por isso essas duas linhas não são o traço original. |
 | `simbolo-produtos-do-sitio_2-editavel.svg` / `.pdf` | **Modelo 2 — editável.** Textos vivos, camadas nomeadas, formas separadas. |
+| `simbolo-produtos-do-sitio_2-editavel_CURVAS.svg` | Mesma arte do Modelo 2 com todo o texto em curvas (abre igual em qualquer programa). |
 | `simbolo-produtos-do-sitio_1-literal_CMYK-40mm.pdf` | **Modelo 1 para a gráfica:** vetor, 100% CMYK, todo em curvas, 40 × 40 mm. |
 | `simbolo-produtos-do-sitio_2-editavel_CMYK-40mm.pdf` | **Modelo 2 para a gráfica:** vetor, 100% CMYK, fontes embutidas, 40 × 40 mm. |
 | `fontes/` | Fontes usadas no Modelo 2 (livres, licença OFL). **Instale antes de abrir.** |
@@ -41,5 +42,5 @@
 - Prefira o **Modelo 1 CMYK** para impressão: é todo em curvas. O do Modelo 2 mantém as fontes embutidas (se a gráfica exigir, no Affinity use `Texto > Converter em curvas`).
 - Sem perfil ICC nem prova impressa aqui, as cores são uma aproximação; peça prova de cor à gráfica.
 
-## Variante "Projeto Renovo Missionário"
-`simbolo-produtos-do-sitio_3-editavel-renovo-missionario.svg/.pdf` (e `_CMYK-40mm.pdf`): igual ao Modelo 2, com o anel de cima em **PROJETO RENOVO MISSIONÁRIO**. Gerada com `TOP_TXT="PROJETO RENOVO MISSIONÁRIO" python3 src/build_editable.py ...`.
+
+**Texto do anel superior em todas as versões:** PROJETO RENOVO MISSIONÁRIO. Endereço: Rod. AM 352 - KM 25 / Ramal Vale de Bençãos.

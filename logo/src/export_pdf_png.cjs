@@ -3,7 +3,7 @@
 const {chromium}=require('playwright');const fs=require('fs');const path=require('path');
 (async()=>{
   const dir=path.resolve(process.argv[2]); const F=path.join(dir,'fontes')+'/';
-  const items=[['simbolo-produtos-do-sitio_1-literal','previa/1-literal.png'],['simbolo-produtos-do-sitio_2-editavel','previa/2-editavel.png'],['simbolo-produtos-do-sitio_3-editavel-renovo-missionario','previa/3-editavel-renovo-missionario.png']];
+  const items=[['simbolo-produtos-do-sitio_1-literal','previa/1-literal.png'],['simbolo-produtos-do-sitio_2-editavel','previa/2-editavel.png']];
   const b=await chromium.launch();
   for(const [name,png] of items){
     let svg=fs.readFileSync(path.join(dir,name+'.svg'),'utf8').replace(/<\?xml[^>]*\?>/,'');
