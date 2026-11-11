@@ -117,7 +117,7 @@ def arc_text_path(cx, cy, r, top):
 # --- texto do anel: calcula tamanho (pela altura de maiúscula) e espaçamento (pelo arco medido)
 CAP = 33.0
 RING_SIZE = CAP / cap_ratio(domine)
-TOP_TXT = "PROJETO MISSIONÁRIO RENOVO"
+TOP_TXT = os.environ.get("TOP_TXT", "PROJETO MISSIONÁRIO RENOVO")
 BOT_TXT = "EDUCAÇÃO · TRABALHO · RENDA"
 R_TOP_BASE = 351.0     # linha de base do texto de cima (letras crescem para fora)
 R_BOT_BASE = 389.0     # linha de base do texto de baixo (letras crescem para dentro)

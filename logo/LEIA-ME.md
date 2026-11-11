@@ -40,3 +40,6 @@
 - Valores escolhidos à mão (C/M/Y/K em %): creme 4/7/32/0 · marrom 40/62/80/78 · terracota 18/82/96/8 · mostarda 14/44/100/6 · oliva 50/46/92/28. Os tons intermediários do Modelo 1 usam conversão automática com limite de tinta de 300%.
 - Prefira o **Modelo 1 CMYK** para impressão: é todo em curvas. O do Modelo 2 mantém as fontes embutidas (se a gráfica exigir, no Affinity use `Texto > Converter em curvas`).
 - Sem perfil ICC nem prova impressa aqui, as cores são uma aproximação; peça prova de cor à gráfica.
+
+## Variante "Projeto Renovo Missionário"
+`simbolo-produtos-do-sitio_3-editavel-renovo-missionario.svg/.pdf` (e `_CMYK-40mm.pdf`): igual ao Modelo 2, com o anel de cima em **PROJETO RENOVO MISSIONÁRIO**. Gerada com `TOP_TXT="PROJETO RENOVO MISSIONÁRIO" python3 src/build_editable.py ...`.
